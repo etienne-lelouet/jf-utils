@@ -57,15 +57,15 @@ function create_symlink() {
 }
 
 
-export DRY_RUN_ONLY=false
+export DRY_RUN=false
 export SEDEXPR=""
 export FILTEREXPR=""
 export VERBOSE=false
-export OVERWRITE_ALL=false
+export YES=false
 export SOURCEFILELIST=""
 export EXIT_ON_SYMLINK_ERROR=false
 export NO_DRY_RUN=false
-TMP=$(getopt -n create_symlinks.sh -o '' --longoptions 'verbose,no-dry-run,exit-on-symlink-error,dry-run-only,overwrite-all,sedexpr:,filterexpr:' -- "$@")
+TMP=$(getopt -n create_symlinks.sh -o '' --longoptions 'verbose,no-dry-run,exit-on-symlink-error,dry-run,yes,sedexpr:,filterexpr:' -- "$@")
 
 if [ $? != 0 ];
 then
@@ -77,8 +77,8 @@ eval set -- "$TMP"
 
 while true; do
 	case "$1" in
-		--dry-run-only)
-			export DRY_RUN_ONLY=true
+		--dry-run)
+			export DRY_RUN=true
 			shift 1
 			;;
 		--exit-on-symlink-error)
@@ -101,8 +101,8 @@ while true; do
 			export VERBOSE=true
 			shift 1
 			;;
-		--overwrite-all)
-			export OVERWRITE_ALL=true
+		--yes)
+			export YES=true
 			shift 1
 			;;
 		--)
@@ -204,7 +204,7 @@ then
 	done<"$SOURCEFILELIST"
 fi
 
-if [ $DRY_RUN_ONLY = true ];
+if [ $DRY_RUN = true ];
 then
 	cleanup_and_exit 0
 fi
@@ -236,7 +236,7 @@ do
 	LINK_NAME_ABS="$DESTDIR/$LINK_NAME"
 	if [ -f "$LINK_NAME_ABS" ];
 	then
-		if [ $OVERWRITE_ALL = false ];
+		if [ $YES = false ];
 		then
 			echo_warning "$LINK_NAME_ABS already exists"
 			while true;
@@ -247,7 +247,7 @@ do
 				if [[ $REPLY =~ ^[Nn]$ ]]; then
 					break;
 				elif [[ $REPLY =~ ^[Aa]$ ]]; then
-					export OVERWRITE_ALL=true
+					export YES=true
 					rm -rf "$LINK_NAME_ABS"
 					create_symlink "$SOURCEFILE" "$LINK_NAME_ABS"
 					break;
