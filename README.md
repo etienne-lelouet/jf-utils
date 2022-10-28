@@ -14,7 +14,7 @@ Create symlinks to all the files contained at the first level of the directory p
 
 - If both `--no-dry-run` and `--dry-run-only` are used, nothing happens.
 
-- If the link you are trying to create already exists, you will be asked for confirmation wether you want do overwrite it or not (you will also be given the option to overwrite for all following occurences). If you want to overwrite unconditionally, used the `--overwrite-all` flag.
+- If the link you are trying to create already exists, you will be asked for confirmation wether you want do overwrite it or not (you will also be given the option to overwrite for all following occurences). If you want to overwrite unconditionally, use the `--overwrite-all` flag.
 
 - `--exit-on-symlink-error` will exit the program if one of the symlink creation failed.
 
