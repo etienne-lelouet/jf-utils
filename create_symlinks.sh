@@ -46,7 +46,7 @@ function create_symlink() {
 	
 	if ln -s "$1" "$2";
 	then
-		echo -e "Created link named ${GREEN}$1${NC} for file ${GREEN}$2${NC}"
+		echo -e "Created link named ${GREEN}$2${NC} to file ${GREEN}$1${NC}"
 	else
 		echo_error "Failed to create link named $1 for file $2"
 		if [ $EXIT_ON_SYMLINK_ERROR = true ];
@@ -157,13 +157,13 @@ else
 	fi
 	if ! [ -w "$DESTDIR" ];
 	then
-		rm -rf $DESTDIR
+		rm -rf "$DESTDIR"
 		echo_error "Dest dir $DESTDIR is not writeable"
 		cleanup_and_exit 1
 	fi
-	rm -rf $DESTDIR
+	rm -rf "$DESTDIR"
 fi
-export DESTDIR=$(realpath $DESTDIR)
+export DESTDIR="$(realpath "$DESTDIR")"
 if [ $VERBOSE = true ];
 then
 	echo "DRY_RUN_ONLY ? $DRY_RUN_ONLY"
@@ -190,7 +190,7 @@ then
 		LINK_NAME="$(basename "$SOURCEFILE")"
 		if [ -n "$SEDEXPR" ];
 		then
-			LINK_NAME=$(echo "$LINK_NAME" | sed -nE "$SEDEXPR")
+			LINK_NAME="$(echo "$LINK_NAME" | sed -nE "$SEDEXPR")"
 		fi
 		LINK_NAME_ABS="$DESTDIR/$LINK_NAME"
 
