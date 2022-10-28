@@ -208,12 +208,15 @@ if [ $DRY_RUN_ONLY = true ];
 then
 	cleanup_and_exit 0
 fi
+if [ $NO_DRY_RUN = false ];
+then
 
-read -p "Create links ?" -r
-echo
-if [[ $REPLY =~ ^[Nn]$ ]]; then
-    echo "Quitting..."
-    cleanup_and_exit 0
+	read -p "Create links ? [y]es, [n]o " -r
+	echo
+	if [[ $REPLY =~ ^[Nn]$ ]]; then
+    		echo "Quitting..."
+    		cleanup_and_exit 0
+	fi
 fi
 
 if ! mkdir -p "$DESTDIR";
