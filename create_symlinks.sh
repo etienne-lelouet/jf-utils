@@ -117,13 +117,13 @@ done
 
 if ! [ -z ${1+x} ];
 then
-	if ! [ -d $1 ];
+	if ! [ -d "$1" ];
 	then
 		echo_error "Source dir $1 does not exist"
 		cleanup_and_exit 1
 	fi
 
-	if ! [ -r $1 ];
+	if ! [ -r "$1" ];
 	then
 		echo_error "Source dir $1 is not readable"
 		cleanup_and_exit 1
@@ -132,12 +132,12 @@ else
 	echo_error "Requires one positional arg as source dir dir"
 	cleanup_and_exit 1
 fi
-export SRCDIR=$(realpath $1)
+export SRCDIR=$(realpath "$1")
 shift
 
 if ! [ -z ${1+x} ];
 then
-	export DESTDIR=$1
+	export DESTDIR="$1"
 else
 	export DESTDIR=$(pwd)
 fi
