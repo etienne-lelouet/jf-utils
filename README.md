@@ -4,7 +4,7 @@
 
 Create symlinks to all the files contained at the first level of the directory passed as the first positional argument into the directory passed as the second positional argument (creating it if it does not exist) or the current working directory.
 
-- Using the `--filterexpr` option, you can filter out certain files from the source directory. As this filter is passed directly to `find ` using the regextype `posix-extended`, your filter must respect [the following syntax)(https://www.gnu.org/software/findutils/manual/html_node/find_html/posix_002dextended-regular-expression-syntax.html).
+- Using the `--filterexpr` option, you can filter out certain files from the source directory. As this filter is passed directly to `find` with the regextype `posix-extended`, your filter must respect [the following syntax](https://www.gnu.org/software/findutils/manual/html_node/find_html/posix_002dextended-regular-expression-syntax.html).
 
 - Using the `--sedexpr` option, you can pass a sed commmand that will transform the original file's base name into another. Your system's `sed` is called with the -E option, so your command must be compatible. The link and the original file have the same base name if this argument is not set.
 
